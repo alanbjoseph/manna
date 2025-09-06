@@ -1,0 +1,8 @@
+Notes
+
+We’re storing each verse as a plain Map<String, dynamic> in versesBox (no adapters needed).
+
+The seeding runs once via the settingsBox['versesSeeded'] flag.
+
+Later, if you refresh your JSON, you can reset that flag (or implement a version/hash check) and run the seeding again.
+
