@@ -27,8 +27,6 @@ class VerseTemplate extends StatelessWidget {
                 reference,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-
-              //SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Text(verse, style: TextStyle(fontSize: 18)),
@@ -37,7 +35,6 @@ class VerseTemplate extends StatelessWidget {
           ),
         ),
 
-        // buttons
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20.0),

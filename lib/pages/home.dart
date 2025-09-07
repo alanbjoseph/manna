@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:manna/util/verse_template.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:manna/util/verse_template.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,10 +10,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> {
-
   late List<dynamic> shuffledVerses;
   late final ValueListenable<Box> favoritesListenable;
-
 
   late Box versesBox;
   late Box favoritesBox;
@@ -32,7 +31,6 @@ class _HomePageState extends State<Home> {
     favoritesListenable = favoritesBox.listenable();
   }
 
-  // onLike() function declaration
   void onLike(int index) {
     final verse = shuffledVerses[index];
     final key = verse['reference'];
@@ -76,7 +74,7 @@ class _HomePageState extends State<Home> {
               );
             },
           );
-        }
+        },
       ),
     );
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:manna/pages/favorites.dart';
 import 'package:manna/pages/home.dart';
 import 'package:manna/pages/reminders.dart';
 import 'package:manna/pages/settings.dart';
-import 'package:flutter/services.dart';
+
 
 class HomePage extends StatefulWidget {
   final bool versesUpdated;
@@ -15,29 +18,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
 
-  if (widget.versesUpdated) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Update"),
-          content: Text("Verses have been updated."),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text("OK"),
-            ),
-          ],
-        ),
-      );
-    });
+    final settingsBox = Hive.box('settingsBox');
+
+    if (widget.versesUpdated && settingsBox.get("hasShownUpdateDialog") != true) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Update"),
+            content: Text("Verses have been updated."),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("OK"),
+              ),
+            ],
+          ),
+        );
+      });
+      settingsBox.put("hasShownUpdateDialog", true);
+    }
   }
-}
-
-
 
   int _selectedIndex = 0;
 
@@ -83,7 +87,6 @@ void initState() {
                   _switchPage(1);
                 },
               ),
-
               Spacer(), //remove after coding the two below
               /*
               ListTile(
@@ -110,9 +113,7 @@ void initState() {
                     context: context,
                     builder: (_) => AlertDialog(
                       //title: Text('Remove Favorite'),
-                      content: Text(
-                        'Do you really want to exit?',
-                      ),
+                      content: Text('Do you really want to exit?'),
                       actions: [
                         TextButton(
                           child: Text('Cancel'),
@@ -134,7 +135,6 @@ void initState() {
                   //SystemNavigator.pop();
                 },
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text('v1.0.0'),
@@ -143,10 +143,7 @@ void initState() {
           ),
         ),
       ),
-
       body: _pages[_selectedIndex],
-
-      
     );
   }
 }
