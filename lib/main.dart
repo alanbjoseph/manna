@@ -17,7 +17,7 @@ Future<void> main() async {
   await Hive.openBox('favoritesBox');
   await Hive.openBox('settingsBox');
 
-  const currentDatasetVersion = 1;
+  const currentDatasetVersion = 2;
 
   final settingsBox = Hive.box('settingsBox');
   final storedVersion = settingsBox.get('datasetVersion', defaultValue: 0);
