@@ -7,7 +7,6 @@ import 'package:manna/pages/home.dart';
 import 'package:manna/pages/reminders.dart';
 import 'package:manna/pages/settings.dart';
 
-
 class HomePage extends StatefulWidget {
   final bool versesUpdated;
   const HomePage({Key? key, required this.versesUpdated}) : super(key: key);
@@ -23,19 +22,13 @@ class _HomePageState extends State<HomePage> {
 
     final settingsBox = Hive.box('settingsBox');
 
-    if (widget.versesUpdated && settingsBox.get("hasShownUpdateDialog") != true) {
+    if (widget.versesUpdated &&
+        settingsBox.get("hasShownUpdateDialog") != true) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text("Update"),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
             content: Text("Verses have been updated."),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text("OK"),
-              ),
-            ],
+            duration: Duration(seconds: 3),
           ),
         );
       });

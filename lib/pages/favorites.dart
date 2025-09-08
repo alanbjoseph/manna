@@ -26,47 +26,37 @@ class Favorites extends StatelessWidget {
             if (box.isEmpty) {
               return Center(child: Text('No favorites yet.'));
             }
-      
+
             return ListView.separated(
               itemCount: box.length,
               itemBuilder: (context, index) {
                 final key = box.keyAt(index);
                 final verse = box.getAt(index);
-      
+
                 if (verse == null || verse is! Map) {
                   return SizedBox.shrink();
                 }
-      
+
                 return ListTile(
                   title: Text(verse["reference"] ?? 'No reference'),
                   subtitle: Text(verse["text"] ?? 'No text'),
                   trailing: IconButton(
                     icon: Icon(Icons.delete_outline, color: Colors.red),
                     onPressed: () {
-                      // Confirm before unfavoriting
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text('Remove Favorite'),
-                          content: Text(
-                            'Do you want to remove this verse from favorites?',
+                      final deletedVerse = favoritesBox.get(key);
+
+                      favoritesBox.delete(key);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Removed from favorites"),
+                          action: SnackBarAction(
+                            label: "Undo",
+                            onPressed: () {
+                              favoritesBox.put(key, deletedVerse);
+                            },
                           ),
-                          actions: [
-                            TextButton(
-                              child: Text('Cancel'),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                            TextButton(
-                              child: Text(
-                                'Remove',
-                                style: TextStyle(color: Colors.red),
-                              ),
-                              onPressed: () {
-                                favoritesBox.delete(key); // Remove from Hive
-                                Navigator.pop(context); // Close dialog
-                              },
-                            ),
-                          ],
+                          duration: Duration(seconds: 3),
                         ),
                       );
                     },
