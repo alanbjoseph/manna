@@ -77,13 +77,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: GoogleSans
-      fonts:
-        - asset: assets/fonts/GoogleSans-Regular.ttf
-        - asset: assets/fonts/GoogleSans-Medium.ttf
-        - asset: assets/fonts/GoogleSans-Bold.ttf
-          weight: 700
+  # fonts:
+  #   - family: GoogleSans
+  #     fonts:
+  #       - asset: assets/fonts/GoogleSans-Regular.ttf
+  #       - asset: assets/fonts/GoogleSans-Medium.ttf
+  #       - asset: assets/fonts/GoogleSans-Bold.ttf
+  #         weight: 700
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
