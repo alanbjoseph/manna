@@ -1,12 +1,13 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:manna/theme/theme.dart';
 import 'util/seed_data.dart';
 
 import 'package:manna/pages/favorites.dart';
 import 'package:manna/pages/reminders.dart';
 import 'package:manna/pages/settings.dart';
 import 'package:manna/homepage.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,17 +41,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Manna',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomePage(versesUpdated: versesUpdated),
-        '/favorites': (context) => Favorites(),
-        '/reminders': (context) => Reminders(),
-        '/settings': (context) => Settings(),
+    return DynamicColorBuilder(
+      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        return MaterialApp(
+          title: 'Manna',
+          initialRoute: '/',
+          routes: {
+            '/': (context) => HomePage(versesUpdated: versesUpdated),
+            '/favorites': (context) => Favorites(),
+            '/reminders': (context) => Reminders(),
+            '/settings': (context) => Settings(),
+          },
+          debugShowCheckedModeBanner: false,
+          theme: getLightTheme(lightDynamic),
+          darkTheme: getDarkTheme(darkDynamic),
+          themeMode: ThemeMode.system,
+        );
       },
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(brightness: Brightness.dark),
     );
   }
 }
