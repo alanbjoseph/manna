@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:manna/pages/favorites.dart';
-import 'package:manna/pages/home.dart';
+import 'package:manna/pages/verses.dart';
 import 'package:manna/pages/reminders.dart';
 import 'package:manna/pages/settings.dart';
 
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [Home(), Favorites(), Reminders(), Settings()];
+  final List<Widget> _pages = [VersesPage(), FavoritesPage(), RemindersPage(), SettingsPage()];
 
   @override
   Widget build(BuildContext context) {

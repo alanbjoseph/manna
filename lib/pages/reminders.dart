@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Reminders extends StatefulWidget {
-  const Reminders({super.key});
+class RemindersPage extends StatefulWidget {
+  const RemindersPage({super.key});
 
   @override
-  State<Reminders> createState() => _RemindersState();
+  State<RemindersPage> createState() => _RemindersState();
 }
 
-class _RemindersState extends State<Reminders> {
+class _RemindersState extends State<RemindersPage> {
   @override
   Widget build(BuildContext context) {
     return Center(child: Text('Welcome to the Reminders Page'));

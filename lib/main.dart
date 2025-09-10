@@ -48,9 +48,9 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/': (context) => HomePage(versesUpdated: versesUpdated),
-            '/favorites': (context) => Favorites(),
-            '/reminders': (context) => Reminders(),
-            '/settings': (context) => Settings(),
+            '/favorites': (context) => FavoritesPage(),
+            '/reminders': (context) => RemindersPage(),
+            '/settings': (context) => SettingsPage(),
           },
           debugShowCheckedModeBanner: false,
           theme: getLightTheme(lightDynamic),

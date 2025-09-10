@@ -4,12 +4,12 @@ import 'package:flutter/foundation.dart';
 
 import 'package:manna/util/verse_template.dart';
 
-class Home extends StatefulWidget {
+class VersesPage extends StatefulWidget {
   @override
-  State<Home> createState() => _HomePageState();
+  State<VersesPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<Home> {
+class _HomePageState extends State<VersesPage> {
   late List<dynamic> shuffledVerses;
   late final ValueListenable<Box> favoritesListenable;
 
