@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:manna/pages/favorites.dart';
@@ -38,103 +37,57 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  void _switchPage(int index) {
-    setState(() {
-      _selectedIndex = index;
-      Navigator.of(context).pop();
-    });
-  }
-
   final List<Widget> _pages = [Home(), Favorites(), Reminders(), Settings()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: Text(
-          'Manna',
-          style: TextStyle(
-            fontFamily: 'GoogleSans',
-            fontWeight: FontWeight.bold,
+        title: Text('Manna'),
+        elevation: 4.0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: Scaffold.of(context).openDrawer,
+            icon: Icon(Icons.menu_rounded),
           ),
         ),
       ),
 
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            children: [
-              DrawerHeader(child: Text('Manna App')),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                onTap: () {
-                  _switchPage(0);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.favorite),
-                title: Text('Favorites'),
-                onTap: () {
-                  _switchPage(1);
-                },
-              ),
-              Spacer(), //remove after coding the two below
-              /*
-              ListTile(
-                leading: Icon(Icons.alarm),
-                title: Text('Reminders'),
-                onTap: () {
-                  _switchPage(2);
-                },
-              ),
-              Spacer(),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: () {
-                  _switchPage(3);
-                },
-              ),
-              */
-              ListTile(
-                leading: Icon(Icons.close),
-                title: Text('Exit'),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      //title: Text('Remove Favorite'),
-                      content: Text('Do you really want to exit?'),
-                      actions: [
-                        TextButton(
-                          child: Text('Cancel'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        TextButton(
-                          child: Text(
-                            'Exit',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          onPressed: () {
-                            SystemNavigator.pop(); // Remove from Hive
-                            //Navigator.pop(context); // Close dialog
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                  //SystemNavigator.pop();
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('v1.0.0'),
-              ),
-            ],
+      drawer: NavigationDrawer(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+            Navigator.pop(context);
+          });
+        },
+        children: const [
+          DrawerHeader(child: Center(child: Text('Manna App'))),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.book),
+            label: Text('Verses'),
           ),
-        ),
+          SizedBox(height: 10),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.favorite),
+            label: Text('Favorites'),
+          ),
+          SizedBox(height: 10),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.notifications),
+            label: Text('Reminders'),
+          ),
+          SizedBox(height: 10),
+          NavigationDrawerDestination(
+            icon: Icon(Icons.settings),
+            label: Text('Settings'),
+          ),
+          SizedBox(height: 15.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(child: Text('v2.0')),
+          ),
+        ],
       ),
       body: _pages[_selectedIndex],
     );
