@@ -15,11 +15,44 @@ class FavoritesPage extends StatelessWidget {
           return;
         } else {
           Navigator.pushReplacementNamed(context, '/');
-          //return false;
         }
       }),
       child: Scaffold(
-        appBar: AppBar(title: Text('Favorites')),
+        floatingActionButton: IconButton(
+          onPressed: () async {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog.adaptive(
+                  title: const Text('Clear Favorites?'),
+                  content: const Text(
+                    'Are you sure you want to clear all your favorite verses? This action cannot be undone.',
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Dismiss the dialog
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        await favoritesBox.clear();
+                        print('Favorites cleared!');
+
+                        Navigator.of(context).pop(); // Dismiss the dialog
+                      },
+                      child: const Text('Clear'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          icon: Icon(Icons.delete_forever_rounded),
+          iconSize: 40,
+          color: Theme.of(context).colorScheme.error,
+        ),
         body: ValueListenableBuilder(
           valueListenable: favoritesBox.listenable(),
           builder: (context, Box box, _) {
@@ -38,10 +71,16 @@ class FavoritesPage extends StatelessWidget {
                 }
 
                 return ListTile(
-                  title: Text(verse["reference"] ?? 'No reference'),
-                  subtitle: Text(verse["text"] ?? 'No text'),
+                  title: Text(
+                    verse["reference"] ?? 'No reference',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  subtitle: Text(
+                    verse["text"] ?? 'No text',
+                    style: TextStyle(fontFamily: 'Lora', fontSize: 17),
+                  ),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete_outline, color: Colors.red),
+                    icon: Icon(Icons.remove_rounded),
                     onPressed: () {
                       final deletedVerse = favoritesBox.get(key);
 

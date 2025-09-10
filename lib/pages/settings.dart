@@ -10,6 +10,16 @@ class SettingsPage extends StatefulWidget {
 class _SettingsState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Welcome to the Settings Page'));
+    return PopScope(
+      canPop: false,
+      onPopInvoked: ((didpop) {
+        if (didpop) {
+          return;
+        } else {
+          Navigator.pushReplacementNamed(context, '/');
+        }
+      }),
+      child: Center(child: Text('Welcome to the Settings Page')),
+    );
   }
 }

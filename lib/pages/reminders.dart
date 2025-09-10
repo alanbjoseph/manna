@@ -10,6 +10,16 @@ class RemindersPage extends StatefulWidget {
 class _RemindersState extends State<RemindersPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Welcome to the Reminders Page'));
+    return PopScope(
+      canPop: false,
+      onPopInvoked: ((didpop) {
+        if (didpop) {
+          return;
+        } else {
+          Navigator.pushReplacementNamed(context, '/');
+        }
+      }),
+      child: Center(child: Text('Welcome to the Reminders Page')),
+    );
   }
 }

@@ -17,45 +17,55 @@ class VerseTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                reference,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Text(verse, style: TextStyle(fontSize: 18)),
-              ),
-            ],
-          ),
-        ),
-
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              alignment: Alignment.bottomRight,
+    return Center(
+      child: SizedBox(
+        width: 350, // Fixed width
+        child: GestureDetector(
+          onDoubleTap: onLike,
+          child: Card.filled(
+            elevation: 5.0,
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: onLike,
-                    icon: Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                    ),
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  // Title
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: onLike,
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                        ),
+                      ),
+                      IconButton(onPressed: onShare, icon: Icon(Icons.share)),
+                    ],
                   ),
-                  IconButton(onPressed: onShare, icon: Icon(Icons.share)),
+                  Text(
+                    reference,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ), // Spacing between title and subtitle
+                  // Subtitle
+                  Text(
+                    verse,
+                    style: TextStyle(fontFamily: 'Lora', fontSize: 20),
+                    //textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ), // Spacing between content and actions
+                  // Action buttons
                 ],
               ),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

@@ -37,13 +37,28 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [VersesPage(), FavoritesPage(), RemindersPage(), SettingsPage()];
+  final List<Widget> _pages = [
+    VersesPage(),
+    FavoritesPage(),
+    RemindersPage(),
+    SettingsPage(),
+  ];
+
+  final List<String> _pageTitles = [
+    'Manna',
+    'Favorites',
+    'Reminders',
+    'Settings',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manna'),
+        title: Text(
+          _pageTitles[_selectedIndex],
+          style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+        ),
         elevation: 4.0,
         leading: Builder(
           builder: (context) => IconButton(

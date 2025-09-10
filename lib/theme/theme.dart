@@ -17,7 +17,9 @@ ThemeData getLightTheme(ColorScheme? dynamicScheme) {
     colorScheme: dynamicScheme ?? defaultLightColorScheme,
     useMaterial3: true,
     brightness: Brightness.light,
-    fontFamily: 'Poppins'
+    fontFamily: 'Poppins',
+    appBarTheme: AppBarTheme(backgroundColor: ColorScheme.light().surface),
+    cardTheme: CardThemeData(color: ColorScheme.light().surfaceContainerHigh),
   );
 }
 
@@ -26,5 +28,8 @@ ThemeData getDarkTheme(ColorScheme? dynamicScheme) {
     colorScheme: dynamicScheme ?? defaultDarkColorScheme,
     useMaterial3: true,
     brightness: Brightness.dark,
+    fontFamily: 'Poppins',
+    appBarTheme: AppBarTheme(backgroundColor: ColorScheme.dark().surface),
+    cardTheme: CardThemeData(color: ColorScheme.dark().surfaceContainerHigh),
   );
 }
