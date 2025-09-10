@@ -17,6 +17,7 @@ ThemeData getLightTheme(ColorScheme? dynamicScheme) {
     colorScheme: dynamicScheme ?? defaultLightColorScheme,
     useMaterial3: true,
     brightness: Brightness.light,
+    fontFamily: 'Poppins'
   );
 }
 
